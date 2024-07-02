@@ -59,7 +59,9 @@ namespace Service.Helpers
 
 
             CreateMap<GroupCreateDto, Group>();
-            CreateMap<GroupEditDto, Group>();
+            CreateMap<GroupEditDto, Group>().ForMember(dest => dest.Id, opt => opt.Ignore()) 
+                .ForMember(dest => dest.GroupTeachers, opt => opt.Ignore()) 
+                .ForMember(dest => dest.GroupStudents, opt => opt.Ignore());
 
             CreateMap<GroupTeacherCreateDto, GroupTeachers>();
             CreateMap<GroupTeachers, GroupTeacherDto>();
@@ -67,6 +69,7 @@ namespace Service.Helpers
             CreateMap<StudentCreateDto, Student>();
             CreateMap<Student, StudentDto>()
                 .ForMember(dest => dest.Groups, opt => opt.MapFrom(m => m.GroupStudents.Select(m => m.Group.Name)));
+            CreateMap<StudentEditDto, Student>();
 
 
 

@@ -37,11 +37,25 @@ namespace Service.Services
 
         public async Task DeleteAsync(int? id)
         {
+            if (id == null) throw new ArgumentNullException(nameof(id));
+
+            var group = await _groupRepository.GetById((int)id);
+            if (group == null) throw new KeyNotFoundException($"Group with id {id} not found.");
+
+            await _groupRepository.DeleteAsync(group);
+
         }
 
-        public Task EditAsync(int? id, GroupEditDto model)
+        public async Task EditAsync(int? id, GroupEditDto model)
         {
-            throw new NotImplementedException();
+            if (id == null) throw new ArgumentNullException(nameof(id));
+
+            var existingGroup = await _groupRepository.GetById((int)id);
+            if (existingGroup == null) throw new KeyNotFoundException($"Group with id {id} not found.");
+
+            _mapper.Map(model, existingGroup);
+
+            await _groupRepository.EditAsync(existingGroup);
         }
 
         public async Task<IEnumerable<GroupDto>> GetAllAsync()

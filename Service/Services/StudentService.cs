@@ -3,6 +3,7 @@ using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Repository.Repositories.Interfaces;
 using Service.DTOs.Admin.Students;
+using Service.Helpers.Exceptions;
 using Service.Services.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -85,6 +86,27 @@ namespace Service.Services
             {
                 throw new Exception($"Student with id {studentId} is not in group with id {oldGroupId}.");
             }
+        }
+
+        public async Task EditAsync(int studentId, StudentEditDto model)
+        {
+            var student = await _studentRepo.GetById(studentId);
+            if (student == null)
+            {
+                throw new KeyNotFoundException($"Student with id {studentId} not found.");
+            }
+            await _studentRepo.EditAsync(student);
+        }
+
+        public async Task DeleteAsync(int? id)
+        {
+            if (id is null) throw new ArgumentNullException();
+
+            var student = await _studentRepo.GetById((int)id);
+
+            if (student is null) throw new NotFoundException("Student was not found");
+
+            await _studentRepo.DeleteAsync(_mapper.Map<Student>(student));
         }
     }
 }

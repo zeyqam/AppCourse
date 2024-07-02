@@ -7,6 +7,9 @@ namespace Service.Services.Interfaces
         Task CreateAsync(StudentCreateDto model);
         Task<IEnumerable<StudentDto>> GetAllWithInclude();
         Task AddGroupStudentAsync(int studentId, int groupId);
+
         Task ChangeStudentGroupAsync(int studentId, int oldGroupId, int newGroupId);
+        Task EditAsync(int studentId, StudentEditDto model);
+        Task DeleteAsync(int? id);
     }
 }

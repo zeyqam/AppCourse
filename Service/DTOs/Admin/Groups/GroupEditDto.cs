@@ -6,7 +6,12 @@ using System.Threading.Tasks;
 
 namespace Service.DTOs.Admin.Groups
 {
-    public record GroupEditDto(string name, int capacity, int educationId, int roomId, int teacherId)
+    public class GroupEditDto
     {
+        public string Name { get; set; }
+        public int Capacity { get; set; }
+        public int EducationId { get; set; }
+        public int RoomId { get; set; }
+        public int TeacherId { get; set; }
     }
 }
