@@ -28,7 +28,7 @@ namespace App.Controllers.Admin
             return Ok(mappedStudents);
         }
         [HttpPost("{studentId}/add-group")]
-        public async Task<IActionResult> AddGroup(int studentId, [FromBody] AddGroupDto request)
+        public async Task<IActionResult> AddGroup([FromRoute]int studentId, [FromBody] AddGroupDto request)
         {
             try
             {
@@ -41,7 +41,7 @@ namespace App.Controllers.Admin
             }
         }
         [HttpPut("{studentId}/change-group")]
-        public async Task<IActionResult> ChangeGroup(int studentId, [FromBody] ChangeGroupDto request)
+        public async Task<IActionResult> ChangeGroup([FromRoute]int studentId, [FromBody] ChangeGroupDto request)
         {
             try
             {

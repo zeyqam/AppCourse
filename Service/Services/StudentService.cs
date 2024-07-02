@@ -53,7 +53,7 @@ namespace Service.Services
 
         public async Task AddGroupStudentAsync(int studentId, int groupId)
         {
-            var group = await _groupRepo.FindByIdAsync(groupId);
+            var group = await _groupRepo.GetById(groupId);
             if (group.Capacity > await _groupStudentRepo.CountStudentsInGroup(groupId))
             {
                 await _groupStudentRepo.CreateAsync(new GroupStudents
@@ -69,7 +69,7 @@ namespace Service.Services
         }
         public async Task ChangeStudentGroupAsync(int studentId, int oldGroupId, int newGroupId)
         {
-            var newGroup = await _groupRepo.FindByIdAsync(newGroupId);
+            var newGroup = await _groupRepo.GetById(newGroupId);
             if (newGroup.Capacity <= await _groupStudentRepo.CountStudentsInGroup(newGroupId))
             {
                 throw new Exception($"New group with id {newGroupId} is full.");
@@ -79,7 +79,7 @@ namespace Service.Services
             if (groupStudent != null)
             {
                 groupStudent.GroupId = newGroupId;
-                await _groupStudentRepo.UpdateAsync(groupStudent);
+                await _groupStudentRepo.EditAsync(groupStudent);
             }
             else
             {

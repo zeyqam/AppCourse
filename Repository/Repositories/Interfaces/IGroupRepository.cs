@@ -10,6 +10,6 @@ namespace Repository.Repositories.Interfaces
 {
     public interface IGroupRepository:IBaseRepository<Group>
     {
-        Task<Group> FindByIdAsync(int id);
+        
     }
 }

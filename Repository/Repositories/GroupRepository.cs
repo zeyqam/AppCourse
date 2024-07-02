@@ -15,9 +15,6 @@ namespace Repository.Repositories
         {
         }
 
-        public async Task<Group> FindByIdAsync(int id)
-        {
-            return await _context.Set<Group>().FindAsync(id);
-        }
+        
     }
 }
